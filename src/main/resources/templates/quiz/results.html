@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+<head>
+<meta charset="UTF-8">
+<title>Quiz results - AcademiGymraeg</title>
+</head>
+<body layout:fragment="content">
+	<div class="d-flex w-100 flex-column" th:object="${quiz}">
+	
+		<div class="w-100 d-flex flex-row justify-content-between">
+			<h1>Your quiz results</h1>
+			<h2 th:text="${quiz.score + ' / 20' }"></h2>
+		</div>
+		
+			
+		<div class="quiz-results" >
+			<div th:each="question, stat : ${quiz.questionList}" class="border my-3 p-3 rounded bg-light d-flex flex-column align-items-center" th:classappend="${question.correct} ? border-success : border-danger">
+
+				<p class="font-weight-bold h3" th:text="${question.question}"></p>
+					<div class="w-100" th:switch="${question.correct}">
+					
+						<div th:case="true" class="w-100 d-flex flex-row justify-content-center">
+							<span th:text="${'your answer: ' + question.inputAnswer}"></span>
+							<span class="material-icons text-success">done</span>
+						</div>
+						
+						<div th:case="false" class="w-100 d-flex flex-row justify-content-around">
+							<div class="d-flex flex-row justify-content-around align-items-center">
+								<span th:text="${'your answer: ' + question.inputAnswer}"></span>
+								<span class="material-icons text-danger">close</span>
+							</div>
+						</div>
+							
+					</div>
+
+				
+
+			</div>
+		
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+<head>
+<meta charset="UTF-8">
+<title>Maths Requests list</title>
+</head>
+<body layout:fragment="content">
+	<div class="d-flex w-100 flex-column">
+	<h1>your previous quizzes</h1>
+	<table class="table">
+		<thead>
+			<td>quiz ID</td>
+			<td class="text-right">score</td>
+		</thead>
+		<tr th:each="quiz : ${quizResultList}" class="quiz-result btn-light w-100 my-1 mx-0" th:onclick="'window.location.href = \'' + @{/quiz/results/{id}(id=${quiz.Id})} + '\''">
+			<td th:text="${quiz.Id}"></td>
+			<td class="text-right" th:text="${quiz.score + '/20'}"></td>
+		</tr>
+	</table>
+	</div>
+</body>
+</html>

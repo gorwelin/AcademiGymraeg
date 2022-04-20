@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}">
+<head>
+<meta charset="UTF-8">
+<title>Add a new noun - Academi Gymraeg</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
+<body layout:fragment="content">
+
+	<div class="row">
+		<div class="col-md-12 page-header">
+			<h1 class="text-center">Create a new user</h1>
+		</div>
+	</div>
+	
+	<form th:action="@{/users/createuser}" th:object="${user}" method="POST" class="col-md-12">
+		<div class="row">
+			<div class="col">
+				<div class="form-outline">
+					<label class="form-label" for="username">Username</label>
+					<input type="text" name="username" id="username" class="form-control" /> 
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-outline">
+					<label class="form-label" for="password" >Password</label>
+					<input type="password" name="password" id="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/> 
+				</div>
+			</div>
+		</div> 
+		<div class="form-outline">
+			<label class="form-label" for="role">User Role</label>
+			<select name="role" id="role" class="w-100 form-control">
+				<option value="STUDENT">Student</option>
+				<option value="INSTRUCTOR">Instructor</option>
+				<option value="ADMIN">Admin</option>
+			</select>
+		</div>
+		
+
+
+
+			
+	
+			
+		<input class="btn btn-dark w-100 mt-3" type="submit" value="create user" id="submitButton" />
+	</form>
+	
+     <div id="message">
+           <h3>Password must contain the following:</h3>
+           <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+           <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+           <p id="number" class="invalid">A <b>number</b></p>
+           <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+       </div>
+
+
+<script>
+var myInput = document.getElementById("password");
+var letter = document.getElementById("letter");
+var capital = document.getElementById("capital");
+var number = document.getElementById("number");
+var length = document.getElementById("length");
+
+// When the user clicks on the password field, show the message box
+myInput.onfocus = function() {
+  document.getElementById("message").style.display = "block";
+}
+
+// When the user clicks outside of the password field, hide the message box
+myInput.onblur = function() {
+  document.getElementById("message").style.display = "none";
+}
+
+// When the user starts to type something inside the password field
+myInput.onkeyup = function() {
+  // Validate lowercase letters
+  var lowerCaseLetters = /[a-z]/g;
+  if(myInput.value.match(lowerCaseLetters)) {  
+    letter.classList.remove("invalid");
+    letter.classList.add("valid");
+  } else {
+    letter.classList.remove("valid");
+    letter.classList.add("invalid");
+  }
+  
+  // Validate capital letters
+  var upperCaseLetters = /[A-Z]/g;
+  if(myInput.value.match(upperCaseLetters)) {  
+    capital.classList.remove("invalid");
+    capital.classList.add("valid");
+  } else {
+    capital.classList.remove("valid");
+    capital.classList.add("invalid");
+  }
+
+  // Validate numbers
+  var numbers = /[0-9]/g;
+  if(myInput.value.match(numbers)) {  
+    number.classList.remove("invalid");
+    number.classList.add("valid");
+  } else {
+    number.classList.remove("valid");
+    number.classList.add("invalid");
+  }
+  
+  // Validate length
+  if(myInput.value.length >= 8) {
+    length.classList.remove("invalid");
+    length.classList.add("valid");
+  } else {
+    length.classList.remove("valid");
+    length.classList.add("invalid");
+  }
+}
+</script>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+</body>
+</html>

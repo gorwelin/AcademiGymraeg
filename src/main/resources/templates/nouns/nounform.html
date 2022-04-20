@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}">
+<head>
+<meta charset="UTF-8">
+<title>Add a new noun - Academi Gymraeg</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
+<body layout:fragment="content">
+
+	<div class="row">
+		<div class="col-md-12 page-header">
+			<h1 class="text-center">Add a new Noun</h1>
+		</div>
+	</div>
+	<form th:action="@{/nouns/create}" th:object="${request}" method="POST" class="col-md-12">
+		<div class="row">
+			<div class="col">
+				<div class="form-outline">
+					<label class="form-label" for="englishNoun">English noun</label>
+					<input type="text" name="englishNoun" id="englishNoun" class="form-control" /> 
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-outline">
+					<label class="form-label" for="welshNoun">Welsh noun</label>
+					<input type="text" name="welshNoun" id="welshNoun" class="form-control" /> 
+				</div>
+			</div>
+		</div>
+		<div class="form-outline">
+			<label class="form-label" for="nounGender">Gender of the noun</label>
+			<select name="nounGender" id="nounGender" class="w-100 form-control" th:field="*{nounGenders}">
+				<option th:each="gen : ${nounGenders}" th:name="${gen}"
+						th:value="${gen}"
+						th:text="${#strings.capitalize(#strings.toLowerCase(gen))}">
+				</option>
+			</select>
+		</div>
+		<div class="form-outline">
+			<label class="form-label" for="nounDescription">Noun Description</label>
+			<textarea name="nounDescription" id="nounDescription" class="w-100  form-control" rows="3" placeholder="Noun description here.."></textarea>
+		</div>
+
+			
+	
+			
+		<input class="btn btn-dark w-100 mt-3" type="submit" value="Submit noun" id="submitButton" />
+	</form>
+
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+<head>
+<meta charset="UTF-8">
+<title>Maths Requests list</title>
+
+
+
+</head>
+<body layout:fragment="content">
+	<div class="w-100 d-flex flex-column">
+		<h1>Requests</h1>
+		<table class="w-100 flex-column table">
+			<thead >
+				<td scope="col"></td>
+				<td scope="col">User ID</td>
+				<td scope="col">Username</td>
+				<td scope="col">password</td>
+				<td scope="col">user type</td>
+				<td>change type</td>
+			</thead>
+			<tr th:each="request : ${users}">
+				<td><a class="link text-danger" th:href="@{delete/{id}(id=${request.userID})}"><span class="material-icons">delete</span></a></td>
+				<td th:text="${request.userID}"></td>
+				<td th:text="${request.username}"></td>
+				<td class="user-password" th:utext="|${request.password} <a href='@{resetpassword/{id}(id=${request.userID})}'>reset</a>|"></td>
+				<td th:text="${request.role}"></td>
+				<td>
+					<form th:action="@{/users/changerole}" method="POST" class="row">
+					    <select name="role">
+					        <option value="STUDENT">Student</option>
+							<option value="INSTRUCTOR">Instructor</option>
+							<option value="ADMIN">Admin</option>
+					    </select>
+					    <input type="hidden" name="userID" th:value="${request.userID}" />
+					    <input class="btn btn-dark" type="submit" value="OK" id="submitButton" />
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+
+</body>
+</html>

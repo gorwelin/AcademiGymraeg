@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+<head>
+<meta charset="UTF-8">
+<title>Take a quiz</title>
+</head>
+<body layout:fragment="content">
+	<div class="d-flex w-100 flex-column">
+	
+	<h1>Take a quiz</h1>
+	<p>This quiz does not use diacritics (â, ê, î, ô, û, ŵ, ŷ) so please use the substitute english letter instead?</p>
+	<form th:action="@{/quiz/take}" th:object="${quiz}" method="POST" class="form col-md-12">
+		<input type="hidden" th:field="*{id}" >
+		<div th:each="question, stat : ${quiz.questionList}" class="w-100 d-flex flex-row justify-content-between border my-3 p-3 rounded bg-light">
+			<!-- <label class="quiz-question-label" th:for="*{quiz.questionList[__${stat.index}__]}" th:text="${question.question}"></label> th:field="*{quiz.questionList[__${stat.index}__]}" -->
+
+				<!-- <input type="text" th:field="*{questionList[__${stat.index}__].inputAnswer}" /> -->
+				<input type="hidden" th:field="*{questionList[__${stat.index}__].id}">
+				
+				
+				<label class="quiz-question-label" th:text="${question.question}"></label>
+				<input class="w-25" th:field="*{questionList[__${stat.index}__].inputAnswer}">
+				
+				
+		</div>
+		
+		
+		<input type="submit" value="Submit quiz">
+	</form>
+	</div>
+</body>
+</html>
